@@ -4,6 +4,19 @@ import { useAxiosRequestWithToken } from '@/utils/service/axios_api';
 import { ApiRoutes } from '@/utils/service/endpoint/api';
 
 
+(async () => {
+    await (useAxiosRequestWithToken().get(`${ApiRoutes.redirect}`)
+        .then(function (response) {
+            console.log("back =>",response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            console.log("chargement encours...");
+        }));
+})()
+
 const oauth = async () => {
     await (useAxiosRequestWithToken().get(`${ApiRoutes.auth}`)
             .then(function (response) {
