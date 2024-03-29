@@ -21,18 +21,22 @@ export const OAuthCode: CallbackFunctionAuthCode = async (url: string) => {
                 const pollOAuth = window.setInterval(function() {
                     try {
                         console.log("data =>",win.document.URL)
+                        console.log("value index_code =>",win.document.URL.indexOf("code"))
                         if (win.document.URL.indexOf("code") != -1) {
                             window.clearInterval(pollOAuth);
                             win.close();
+                            console.log("Entrez")
                             location.reload();
                         }
                     } catch (e) {
                         console.log(e)
+                        console.log("sortie")
                     }
                 }, 100);
                 return false
             }
      await (() => {
+              console.log("Je suis ici")
               return loginPopupUri();
             })()
         }
