@@ -8,11 +8,11 @@ export function useSidebar() {
   }
 }
 interface CallbackFunctionAuthCode{
- (message: string): void;
+ (message: string): Promise<Window>;
 }
 
 //Promise<Window>
-export const OAuthCode: CallbackFunctionAuthCode = async (url: string)  => {
+export const OAuthCode: CallbackFunctionAuthCode = async (url: string) :Promise<Window> => {
   const loginPopupUri = () => {
                 // Launch Popup
                 let parameters = "location=1,width=800,height=650";
@@ -25,12 +25,11 @@ export const OAuthCode: CallbackFunctionAuthCode = async (url: string)  => {
                 //             location.reload();
                 //         }  
                 // }, 100);
-                return false
+                return win
             }
-     await (() => {
+     return await (() => {
               return loginPopupUri();
             })()
-        
         }
 
 export const dateConvert = (dateInput:string) : string => {
