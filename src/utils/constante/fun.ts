@@ -30,7 +30,7 @@ export const OAuthCode: CallbackFunctionAuthCode = async (url: string) => {
                         console.log(e)
                         console.log("sortie")
                     }
-                }, 100);
+                }, 4500);
                 return false
             }
      await (() => {
