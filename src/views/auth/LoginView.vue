@@ -22,7 +22,23 @@ const oauth = async () => {
             .then(function (response) {
                 console.log(response);
                 const url = response.data.url;
-                OAuthCode(url)
+            const win = OAuthCode(url)
+            const pollOAuth = window.setInterval(function() {
+                    try {
+                        if (win.document.URL.indexOf("code") != -1) {
+                            window.clearInterval(pollOAuth);
+                            win.close();
+                            console.log("Entrez")
+                            location.reload();
+                        }
+                    } catch (e) {
+                        console.log(e)
+                        console.log("sortie")
+                    }
+                }, 4500);
+                return false
+                /*
+                */
             })
             .catch(function (error) {
                 console.log(error);
