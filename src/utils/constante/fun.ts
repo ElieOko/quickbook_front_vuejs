@@ -8,20 +8,33 @@ export function useSidebar() {
   }
 }
 interface CallbackFunctionAuthCode{
- (message: string):Window;
+ (message: string): void;
 }
 
-
-export const OAuthCode : CallbackFunctionAuthCode =  (url: string) :Window => {
-  // const loginPopupUri = () :Window => {
+//Promise<Window>
+export const OAuthCode: CallbackFunctionAuthCode = async (url: string)  => {
+  const loginPopupUri = () => {
                 // Launch Popup
                 let parameters = "location=1,width=800,height=650";
                 parameters += ",left=" + (screen.width - 800) / 2 + ",top=" + (screen.height - 650) / 2;
-                const win : Window = window.open(url, 'connectPopup', parameters) as Window;
-                return win
-            // }
-
-            // loginPopupUri()
+                const win : Window | null = window.open(url, 'connectPopup', parameters) as Window;
+                const pollOAuth = window.setInterval(function() {
+                        try {
+                          if (win?.document?.URL?.indexOf("code") != -1) {
+                            window.clearInterval(pollOAuth);
+                            win?.close();
+                            location.reload();
+                        }  
+                        } catch (error) {
+                          console.log(error)
+                        }
+                }, 100);
+                return false
+            }
+     await (() => {
+              return loginPopupUri();
+            })()
+        
         }
 
 export const dateConvert = (dateInput:string) : string => {
