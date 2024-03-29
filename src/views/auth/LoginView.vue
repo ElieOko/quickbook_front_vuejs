@@ -22,13 +22,20 @@ const oauth = async () => {
             .then(function (response) {
                 console.log(response);
                 const url = response.data.url;
+                
                const popup = OAuthCode(url);
-               popup.then((win)=>{
-                 console.log("WT ->",win)
+               setTimeout(()=>{
+                popup.then((win)=>{
+                 console.log("WT ->",win.close)
+                 win.close()
                })
-               setInterval(()=>{
+               },15000)
+            //    popup.then((win)=>{
+            //      console.log("WT ->",win.close)
+            //    })
+            //    setInterval(()=>{
 
-               },100)
+            //    },100)
             })
             .catch(function (error) {
                 console.log(error);
