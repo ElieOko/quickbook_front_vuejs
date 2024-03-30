@@ -16,13 +16,35 @@ import { ApiRoutes } from '@/utils/service/endpoint/api';
             console.log("chargement encours...");
         }));
 })()
+export interface IToken{
+    access_token? : string
+    refresh_token? : string
+    x_refresh_token_expires_in? : string
+    expires_in? : string
+}
+const callTimerAction = setInterval( ()=>{ backup} ,5000)
+const backup =await (useAxiosRequestWithToken().get(`${ApiRoutes.backupToken}`)
+                .then(function (response) {
+                    const token = response.data.token 
+                    if(token != null){
+                        console.log("Token eye ->",token)
+                        clearInterval(callTimerAction)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    //alert("Elie Oko"); 
+                })
+                )
 
 const oauth = async () => {
-    await (useAxiosRequestWithToken().get(`${ApiRoutes.auth}`)
+    await (
+        (useAxiosRequestWithToken().get(`${ApiRoutes.auth}`)
             .then(function (response) {
                 console.log(response);
                 const url = response.data.url;
-                
                const popup = OAuthCode(url);
                setTimeout(()=>{
                 popup.then((win)=>{
@@ -30,20 +52,17 @@ const oauth = async () => {
                  win.close()
                })
                },15000)
-            //    popup.then((win)=>{
-            //      console.log("WT ->",win.close)
-            //    })
-            //    setInterval(()=>{
-
-            //    },100)
+               callTimerAction
             })
             .catch(function (error) {
                 console.log(error);
             })
             .finally(function () {
-                //alert("Elie Oko");
-               
-            }));
+                //alert("Elie Oko"); 
+            })
+            )
+            );
+            
 }
 </script>
 <template>
