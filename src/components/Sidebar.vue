@@ -24,9 +24,9 @@ const inactiveClass = ref(
 
     <div
       :class="isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-      class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gradient-to-l from-gray-600 lg:translate-x-0 lg:static lg:inset-0"
+      class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-black lg:translate-x-0 lg:static lg:inset-0"
     >
-      <div class="flex items-center justify-center mt-8">
+      <div class="flex items-center  justify-center mt-8">
         <div class="flex items-center">
          
 <img src="https://cdn.worldvectorlogo.com/logos/quickbooks-2.svg" class="mr-2 ml-2" alt="" width="30" height="30">
@@ -58,7 +58,7 @@ const inactiveClass = ref(
 
           <span class="mx-4">Accueil</span>
         </router-link>
-
+<!-- 
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'invoice' ? activeClass : inactiveClass]"
@@ -101,7 +101,7 @@ const inactiveClass = ref(
           <path d="M11 12h1v4h1"></path>
         </svg>
           <span class="mx-4">Worker</span>
-        </router-link>
+        </router-link> -->
 
         <!-- <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"

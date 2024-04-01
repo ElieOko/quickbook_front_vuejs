@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { OAuthCode } from '@/utils/constante/fun';
+import router from '@/router';
+import { clearAsyncInterval, OAuthCode,setAsyncInterval } from '@/utils/constante/fun';
 import { useAxiosRequestWithToken } from '@/utils/service/axios_api';
 import { ApiRoutes } from '@/utils/service/endpoint/api';
-
+//@ts-ignore
+import { setToken } from "@/store/token"
+import type { IToken } from '@/utils/interface/other/IOther';
 
 (async () => {
     await (useAxiosRequestWithToken().get(`${ApiRoutes.redirect}`)
@@ -16,28 +19,17 @@ import { ApiRoutes } from '@/utils/service/endpoint/api';
             console.log("chargement encours...");
         }));
 })()
-export interface IToken{
-    access_token? : string
-    refresh_token? : string
-    x_refresh_token_expires_in? : string
-    expires_in? : string
-}
-const callTimerAction = setInterval( ()=>{ backup} ,5000)
-const backup =await (useAxiosRequestWithToken().get(`${ApiRoutes.backupToken}`)
-                .then(function (response) {
-                    const token = response.data.token 
-                    if(token != null){
-                        console.log("Token eye ->",token)
-                        clearInterval(callTimerAction)
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-                .finally(function () {
-                    //alert("Elie Oko"); 
-                })
-                )
+
+// const callTimerAction = setInterval( ()=>{ backup} ,5000)
+// const backup =await (useAxiosRequestWithToken().get(`${ApiRoutes.backupToken}`)
+//                 .then(function (response) {
+//                     const token = response.data.token 
+//                     if(token != null){
+//                         console.log("Token eye ->",token)
+//                         clearInterval(callTimerAction)
+//                     }
+//                 })
+//                 )
 
 const oauth = async () => {
     await (
@@ -46,13 +38,35 @@ const oauth = async () => {
                 console.log(response);
                 const url = response.data.url;
                const popup = OAuthCode(url);
-               setTimeout(()=>{
-                popup.then((win)=>{
-                 console.log("WT ->",win.close)
-                 win.close()
-               })
-               },15000)
-               callTimerAction
+            //    setTimeout(()=>{
+            //     popup.then((win)=>{
+            //      console.log("WT ->",win.close)
+            //      win.close()
+            //    })
+            //    },15000)
+               setAsyncInterval(async () => {
+                console.log('start');
+                const promise = useAxiosRequestWithToken().get(`${ApiRoutes.backupToken}`)
+                .then(function (response) {
+                    const token = response.data.token 
+                    if(token != null){
+                        console.log("**************************")
+                        console.log("Token eye ->",token)
+                        setToken(token as IToken)
+                        router.push("/")
+                        console.log("**************************")
+                        alert("Connexion reussie");
+                        clearAsyncInterval(0)
+                        popup.then((win)=>{
+                            console.log("WT ->",win.close)
+                            win.close()
+                        })
+                    }
+                })
+                await promise;
+                console.log('end');
+                }, 1000);
+               //callTimerAction
             })
             .catch(function (error) {
                 console.log(error);
