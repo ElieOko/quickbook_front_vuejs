@@ -67,10 +67,8 @@ export const OAuthCode: CallbackFunctionAuthCode = async (url: string) :Promise<
                 accept: 'application/json',
                 "Content-type"      :   "application/text",
                 "X-Requested-With"  :   "XMLHttpRequest",
-                "Authorization"     :   `Bearer ${token}`,
-                "Access-Control-Allow-Origin":"https://qkbfront.drapeauyamboka.com",        
-              },
-              
+                "Authorization"     :   `Bearer ${token}`       
+              }
             })
             return useAxios
           }       
