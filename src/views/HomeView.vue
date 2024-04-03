@@ -15,6 +15,7 @@ if(token != null){
     .catch(function (error) {
                
     })
+    /*
     await useAx(access_token).get("/query?query=SELECT%20*%20FROM%20Customer")
         .then(function (response) {
             console.log("Customer -> ",response)
@@ -98,7 +99,7 @@ if(token != null){
     })
     .catch(function (error) {
                
-    })
+    })*/
 })() 
 }
 

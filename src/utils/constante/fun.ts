@@ -65,7 +65,7 @@ export const OAuthCode: CallbackFunctionAuthCode = async (url: string) :Promise<
               baseURL               : `https://quickbooks.api.intuit.com/v3/company/9341451930708145`,
               headers   : {
                 accept: 'application/json',
-                "Content-type"      :   "application/text",
+                "Content-type"      :   "application/json",
                 "X-Requested-With"  :   "XMLHttpRequest",
                 "Authorization"     :   `Bearer ${token}`       
               }
