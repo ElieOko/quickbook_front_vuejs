@@ -58,8 +58,8 @@ const oauth = async () => {
                         alert("Connexion reussie");
                         clearAsyncInterval(0)
                         popup.then((win)=>{
-                            console.log("WT ->",win.close)
-                            win.close()
+                           // console.log("WT ->",win.close)
+                           // win.close()
                         })
                     }
                 })
