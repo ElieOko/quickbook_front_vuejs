@@ -53,7 +53,7 @@ const oauth = async () => {
                         console.log("**************************")
                         console.log("Token eye ->",token)
                         setToken(token as IToken)
-                        router.push("/")
+                        // router.push("/")
                         console.log("**************************")
                         alert("Connexion reussie");
                         clearAsyncInterval(0)
