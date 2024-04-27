@@ -41,7 +41,7 @@ const router = useRouter();
       </button>
 
       <div class="relative mx-4 lg:mx-0">
-        <h3 class="text-2xl">DM</h3>
+        <h3 class="text-2xl">QuickBooks Customization</h3>
       </div>
     </div>
 

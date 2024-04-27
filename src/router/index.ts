@@ -8,6 +8,8 @@ import WorkerView from '@/views/worker/WorkerView.vue'
 import AppendWorkerView from '@/views/worker/AppendWorkerView.vue'
 import ProfileView from '@/views/company/ProfileView.vue'
 import CallbackView from '@/views/callback/CallbackView.vue'
+import ItemView from '@/views/item/ItemView.vue'
+import CustomerView from '@/views/customer/CustomerView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -26,6 +28,11 @@ const router = createRouter({
       path: '/invoice',
       name: 'invoice',
       component: InvoiceView
+    },
+    {
+      path: '/item',
+      name: 'item',
+      component: ItemView
     },
     {
       path: '/invoice/new',
@@ -63,8 +70,14 @@ const router = createRouter({
       component: CallbackView   
     },
     {
+      path: '/customer',
+      name: 'customer',
+      component: CustomerView   
+    },
+    {
       path: '/about',
       name: 'about',
+      meta: { layout: 'empty' },
       component: () => import('../views/AboutView.vue')
     }
   ]

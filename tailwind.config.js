@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+import withMT from "@material-tailwind/html/utils/withMT";
+
+export default withMT({
   content: [
       "./index.html",
      "./src/**/*.{vue,js,ts,jsx,tsx}"
@@ -7,6 +9,11 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/container-queries'),
+  ],
+})
 

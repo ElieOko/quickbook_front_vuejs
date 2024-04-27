@@ -12,3 +12,18 @@ export const useAxiosRequestWithToken = (token:string = "") : AxiosInstance  =>{
       })
       return useAxios
 }
+
+export const useAxiosRequest = (token:string = "") : AxiosInstance  =>{
+  const useAxios: AxiosInstance = axios.create({
+      baseURL               : "https://expressjs-quickbook.vercel.app/api/",
+      headers   : {
+        accept: 'application/json',
+        "Access-Control-Allow-Origin": 'http://localhost:5174/',
+        "Content-type"      :   "application/json",
+        "X-Requested-With"  :   "XMLHttpRequest",
+        "Authorization"     :   `Bearer ${token}`,
+        
+      },
+    })
+    return useAxios
+}

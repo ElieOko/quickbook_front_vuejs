@@ -1,0 +1,19 @@
+export interface ICustomer{
+    CustomerId?                 : number;
+    Domain?                     : String,
+    DisplayName?                : String,
+    GivenName?                  : String,
+    SyncToken?                  : String,
+    FullyQualifiedName?         : String,
+    CompanyName?                : String,
+    FamilyName?                 : String,
+    PreferredDeliveryMethod?    : String,
+    Sparse?                     : String,
+    Taxable?                    : String,
+    Active?                     : String,
+    Job?                        : String,
+    BillWithParent?             : String,
+    BalanceWithJobs?            : String,
+    PrintOnCheckName?           : String,
+    Balance?                    : String
+}

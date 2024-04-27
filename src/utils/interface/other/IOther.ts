@@ -1,4 +1,6 @@
-import type { IItemAccountRef, IItemRef } from "../item/IItem"
+import type { IInvoice } from "../invoice/IInvoice"
+import type { IInvoiceLine } from "../invoice/IInvoiceLine"
+import type { IItem, IItemAccountRef, IItemRef } from "../item/IItem"
 
 export interface IAccountBasedExpenseLineDetail{
     BillableStatus?: String
@@ -51,4 +53,17 @@ export interface IToken{
     refresh_token? : string
     x_refresh_token_expires_in? : string
     expires_in? : string
+}
+
+
+export interface IGlobalInfoInvoice{
+    invoice?                        : IInvoice
+    item?                           : IItem
+    invoice_line?                   : IInvoiceLine
+    SalesItemLineDetailInvoiceId?   : Number
+    InvoiceFId?                     : string
+    LineFId?                        : string
+    Quantity?                       : String
+    UnitPrice?                      : String
+    ItemFId?                        : String    
 }

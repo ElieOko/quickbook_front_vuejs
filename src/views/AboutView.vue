@@ -1,6 +1,11 @@
+<script setup lang="ts">
+//@ts-ignore
+import LoadingUi from '@/components/LoadingUi.vue';
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+    <LoadingUi/>
   </div>
 </template>
 
