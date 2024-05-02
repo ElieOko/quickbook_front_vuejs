@@ -11,6 +11,7 @@ import CallbackView from '@/views/callback/CallbackView.vue'
 import ItemView from '@/views/item/ItemView.vue'
 import CustomerView from '@/views/customer/CustomerView.vue'
 import AccountView from '@/views/account/AccountView.vue'
+import VendorView from '@/views/vendor/VendorView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -74,6 +75,11 @@ const router = createRouter({
       path: '/customer',
       name: 'customer',
       component: CustomerView   
+    },
+    {
+      path: '/vendor',
+      name: 'vendor',
+      component: VendorView   
     },
     {
       path: '/account',

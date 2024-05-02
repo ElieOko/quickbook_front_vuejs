@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { ref,watchEffect} from 'vue';
+import { ref, watchEffect } from 'vue';
+import type { IVendor } from '@/utils/interface/vendor/IVendor';
 import { process, filterBy, type CompositeFilterDescriptor, type SortDescriptor } from '@progress/kendo-data-query';
 import { Grid, GridToolbar } from '@progress/kendo-vue-grid';
 import { Loader } from '@progress/kendo-vue-indicators'
-import { saveExcel } from '@progress/kendo-vue-excel-export';
-import type { IItem } from '@/utils/interface/item/IItem';
 //@ts-ignore
-import { itemColumn } from '@/utils/constante/column/item_col';
+import { vendorColumn } from '@/utils/constante/column/vendor_col';
 import { ApiRoutes } from '@/utils/service/endpoint/api';
 import { useAxiosRequestWithToken } from '@/utils/service/axios_api';
 
-const item = ref<Array<IItem>>([])
-const editField = ref<any>()
+const vendor = ref<Array<IVendor>>([{}])
+    const editField = ref<any>()
 
 const type = "infinite-spinner"
 const loader       = ref<Boolean>(false)
@@ -23,7 +22,7 @@ const gridPageable = {buttonCount: 5,info: true,type: 'numeric',pageSizes: true,
 const sortable = ref(true);
 const skip = ref<number>(0);
 const take = ref<number>(4);
-const sort = ref<SortDescriptor[] | undefined>([{ field: "id", dir: "asc" }]);
+const sort = ref<SortDescriptor[] | undefined>([{ field: "VendorId", dir: "asc" }]);
 const cellClick = (e: any) => {
     if (e.dataItem.inEdit && e.field === editField.value) {
         return;
@@ -36,7 +35,7 @@ const exitEdit =  (dataItem:any, exitEdit:any) => {
     if (!exitEdit && dataItem.inEdit) {
         return;
     }
-    item.value.forEach((d:any) => {
+    vendor.value.forEach((d:any) => {
         if (d.inEdit) {
           d.inEdit = undefined;
         }
@@ -44,10 +43,10 @@ const exitEdit =  (dataItem:any, exitEdit:any) => {
     editField.value = undefined;
     }
 const itemChange =  (e:any)=> {
-    const data =  item.value.slice();
-    const index = data.findIndex((d  => d.ItemId === e.dataItem.id ))
+    const data =  vendor.value.slice();
+    const index = data.findIndex((d  => d.VendorId === e.dataItem.id ))
     data[index] = { ...data[index], [e.field]: e.value };
-    item.value  = data;
+    vendor.value  = data;
     }
 const filter = ref<CompositeFilterDescriptor>({logic: "and", filters: []});
 const pageChangeHandler = (event:any) => {
@@ -69,9 +68,8 @@ const filterChange =  (ev:any)=> {
 //
 watchEffect( async ()=>{
     await(
-        useAxiosRequestWithToken().get(ApiRoutes.allItem).then(response =>{
-            item.value = response.data.items as Array<IItem>
-                console.log("data ->",response.data.items)
+        useAxiosRequestWithToken().get(ApiRoutes.allVendor).then(response =>{
+            vendor.value = response.data.vendors as Array<IVendor>
         }).catch(er =>{
             console.log(er);
         }).finally(()=>{
@@ -82,12 +80,11 @@ watchEffect( async ()=>{
 </script>
 
 <template>
-    <div>
     <grid
     @pagechange="pageChangeHandler"
-    :total ="item?.length"
-    :data-items="item"
-    :columns="itemColumn as any"
+    :total ="vendor?.length"
+    :data-items="vendor"
+    :columns="vendorColumn as any"
     :edit-field="'inEdit'"
     @cellclick="cellClick"
     @itemchange="itemChange"
@@ -102,10 +99,10 @@ watchEffect( async ()=>{
     :skip="skip">
     </grid>
     <div v-if="show" class="k-loader-container k-loader-container-md k-loader-top">
-      <div class="k-loader-container-overlay k-overlay-dark" />
-      <div class="k-loader-container-inner">
-        <Loader :size="'large'" :type="type" />
+      <div class="k-loader-container-overlay k-overlay-dark" >
+        <div class="k-loader-container-inner">
+            <Loader :size="'large'" :type="type" />
+        </div>
       </div>
     </div>
-</div>
 </template>
