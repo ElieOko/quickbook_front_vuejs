@@ -3,15 +3,13 @@ import { ref,watchEffect} from 'vue';
 import { process, filterBy, type CompositeFilterDescriptor, type SortDescriptor } from '@progress/kendo-data-query';
 import { Grid, GridToolbar } from '@progress/kendo-vue-grid';
 import { Loader } from '@progress/kendo-vue-indicators'
-import { saveExcel } from '@progress/kendo-vue-excel-export';
-import type { IInvoice } from '@/utils/interface/invoice/IInvoice';
-import { invoiceColumn } from '@/utils/constante/column/invoice_col';
+import type { IAccount } from '@/utils/interface/account/IAccount';
+import { accountColumn } from '@/utils/constante/column/account_col';
 import { useAxiosRequestWithToken } from '@/utils/service/axios_api';
 import { ApiRoutes } from '@/utils/service/endpoint/api';
-import type { IGlobalInfoInvoice } from '@/utils/interface/other/IOther';
 
 
-const invoice = ref<Array<IGlobalInfoInvoice>>([])
+const accounts = ref<Array<IAccount>>([{}])
 const editField = ref<any>()
 const type = "infinite-spinner"
 const loader       = ref<Boolean>(false)
@@ -36,7 +34,7 @@ const exitEdit =  (dataItem:any, exitEdit:any) => {
     if (!exitEdit && dataItem.inEdit) {
         return;
     }
-    invoice.value.forEach((d:any) => {
+    accounts.value.forEach((d:any) => {
         if (d.inEdit) {
           d.inEdit = undefined;
         }
@@ -44,10 +42,10 @@ const exitEdit =  (dataItem:any, exitEdit:any) => {
     editField.value = undefined;
     }
 const itemChange =  (e:any)=> {
-    const data =  invoice.value.slice();
-    const index = data.findIndex((d  => d.invoice?.InvoiceId === e.dataItem.id ))
+    const data =  accounts.value.slice();
+    const index = data.findIndex((d  => d.AccountId === e.dataItem.id ))
     data[index] = { ...data[index], [e.field]: e.value };
-    invoice.value  = data;
+    accounts.value  = data;
     }
 const filter = ref<CompositeFilterDescriptor>({logic: "and", filters: []});
 const pageChangeHandler = (event:any) => {
@@ -66,12 +64,11 @@ const filterChange =  (ev:any)=> {
         loader.value = false;
       }, 300);
 } 
+
 watchEffect( async ()=>{
     await(
-        useAxiosRequestWithToken().get(ApiRoutes.getSalesItemLineDetailsInvoice).then(response =>{
-            invoice.value = response.data.salesItemLine as Array<IGlobalInfoInvoice>
-            console.log()
-                
+        useAxiosRequestWithToken().get(ApiRoutes.allAccount).then(response =>{
+            accounts.value = response.data.accounts as Array<IAccount>
         }).catch(er =>{
             console.log(er);
         }).finally(()=>{
@@ -79,41 +76,32 @@ watchEffect( async ()=>{
         })
     )
 })
-
 </script>
-
 <template>
-    <router-link 
-        class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          to="/invoice/new">
-          <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">Create +</button>
-        </router-link>
-    <div class="mt-4">
-        
+    <h3>Account</h3>
     <grid
-    @pagechange="pageChangeHandler"
-    :total ="invoice?.length"
-    :data-items="invoice"
-    :columns="invoiceColumn as any"
-    :edit-field="'inEdit'"
-    @cellclick="cellClick"
-    @itemchange="itemChange"
-    :filter="filter"
-    @filterchange="filterChange"
-    :loader="show"
-    :column-menu="true"
-    :pageable="gridPageable"
-    :sortable="sortable"
-    :sort="sort"
-    :take="take"
-    :skip="skip"
-    >
-    </grid>
-    <div v-if="show" class="k-loader-container k-loader-container-md k-loader-top">
-      <div class="k-loader-container-overlay k-overlay-dark" />
-      <div class="k-loader-container-inner">
-        <Loader :size="'large'" :type="type" />
-      </div>
-    </div>
-    </div>
+        @pagechange="pageChangeHandler"
+        :total ="accounts?.length"
+        :data-items="accounts"
+        :columns="accountColumn as any"
+        :edit-field="'inEdit'"
+        @cellclick="cellClick"
+        @itemchange="itemChange"
+        :filter="filter"
+        @filterchange="filterChange"
+        :loader="show"
+        :column-menu="true"
+        :pageable="gridPageable"
+        :sortable="sortable"
+        :sort="sort"
+        :take="take"
+        :skip="skip">
+        </grid>
+        <div v-if="show" class="k-loader-container k-loader-container-md k-loader-top">
+            <div class="k-loader-container-overlay k-overlay-dark">
+                <div class="k-loader-container-inner">
+                    <Loader :size="'large'" :type="type" />
+                </div>
+            </div>
+        </div>
 </template>

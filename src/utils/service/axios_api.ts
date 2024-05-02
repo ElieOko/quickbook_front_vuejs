@@ -27,3 +27,15 @@ export const useAxiosRequest = (token:string = "") : AxiosInstance  =>{
     })
     return useAxios
 }
+
+export const getApiWithConfigAxios = (token = "") : AxiosInstance =>{
+  return  axios.create({
+        baseURL               :/*"https://server.drapeauyamboka.com/api"*/`https://quickbooks.api.intuit.com/v3/company/9341452194141898`,
+        headers   : {
+          accept: 'application/json',
+          "Content-type"      :   "application/json",
+          "X-Requested-With"  :   "XMLHttpRequest",
+          "Authorization"     :   `Bearer ${token}`       
+        }
+      })
+}
