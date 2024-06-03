@@ -79,6 +79,12 @@ watchEffect( async ()=>{
 </script>
 <template>
     <h3>Account</h3>
+    <br><br>
+    <router-link 
+        class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+          to="account/new">
+          <button class="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">new +</button>
+        </router-link>
     <grid
         @pagechange="pageChangeHandler"
         :total ="accounts?.length"
