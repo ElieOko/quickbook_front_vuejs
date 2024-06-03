@@ -16,4 +16,5 @@ export const ApiRoutes = {
     allReportListAccount : "/rapport/account/all",
     getInvoiceById : "/invoice/",
     getSalesItemLineDetailsInvoice : "/sales/item/line/detail/invoice",
+    getTokenQkb : "/token/refresh"
 }

@@ -18,4 +18,5 @@ export interface IAccount{
 export interface IAccountRequest{
     Name        : String
     AccountType : String
+    token? : String
 }

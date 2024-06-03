@@ -2,15 +2,28 @@
 import { account_type } from '@/utils/constante/typeaccount';
 import type { IAccountRequest } from '@/utils/interface/account/IAccount';
 import { useAxiosRequest } from '@/utils/service/axios_api';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
+import { useAxiosRequestWithToken } from '@/utils/service/axios_api';
+import { ApiRoutes } from '@/utils/service/endpoint/api';
+
 
 const account_data = ref<IAccountRequest>({
   Name:"",
   AccountType:""
 })
-
+const token = ref<String>("");
+watchEffect( async ()=>{
+    await(
+        useAxiosRequestWithToken().get(ApiRoutes.getTokenQkb).then(response =>{
+          token.value = response.data.token.accessTokenKey
+        }).catch(er =>{
+            console.log(er);
+        })
+    )
+})
 const new_submit = async ()=>{
   if(account_data.value.Name && account_data.value.AccountType){
+    account_data.value.token = token.value
         await(
             useAxiosRequest().post("create/account",account_data).then(response =>{
                 console.log(response.data)
