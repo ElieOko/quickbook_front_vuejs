@@ -14,3 +14,8 @@ export interface IAccount{
     SubAccount?                      : String
     SyncToken?                       : Number
 }
+
+export interface IAccountRequest{
+    Name        : String
+    AccountType : String
+}
