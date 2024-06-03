@@ -12,6 +12,7 @@ import ItemView from '@/views/item/ItemView.vue'
 import CustomerView from '@/views/customer/CustomerView.vue'
 import AccountView from '@/views/account/AccountView.vue'
 import VendorView from '@/views/vendor/VendorView.vue'
+import AppendAccountView from '@/views/account/AppendAccountView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -85,6 +86,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: AccountView 
+    },
+    {
+      path: '/account/new',
+      name: 'account_new',
+      component: AppendAccountView 
     },
     {
       path: '/about',
