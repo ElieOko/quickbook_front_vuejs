@@ -73,9 +73,8 @@ const new_submit = async ()=>{
     </div>
 </div>
     <div class="fex flex-wrap -mx-3 left-[280px] w-full mb-8 gap-14">
-        <button class="bg-[#e74646] w-[100px]  md:w-1/5 px-8  rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">Cancel </button>
-         <input type="hidden" name="">
-        <button class="bg-[#002D74] w-[100px] md:w-1/5 px-8  rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">Save +</button>
+        
+        <button type="submit" class="bg-[#002D74] w-[100px] md:w-1/5 px-8  rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">Save +</button>
     </div>
 </div>
 </form>
