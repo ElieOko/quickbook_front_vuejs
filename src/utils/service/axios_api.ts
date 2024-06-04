@@ -21,7 +21,7 @@ export const useAxiosRequest = (token:string = "") : AxiosInstance  =>{
         "Access-Control-Allow-Origin": 'https://qkbfront.drapeauyamboka.com/',
         "Content-type"      :   "application/json",
         "X-Requested-With"  :   "XMLHttpRequest",
-        "Authorization"     :   `Bearer ${token}`,
+        "Authorization"     :   `${token}`,
         
       },
     })
