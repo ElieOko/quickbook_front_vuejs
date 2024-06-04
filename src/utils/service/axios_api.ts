@@ -18,7 +18,7 @@ export const useAxiosRequest = (token:string = "") : AxiosInstance  =>{
       baseURL               : "https://expressjs-quickbook.vercel.app/api/",
       headers   : {
         accept: 'application/json',
-        "Access-Control-Allow-Origin": 'https://qkbfront.drapeauyamboka.com/',
+        "Access-Control-Allow-Origin": '*',
         "Content-type"      :   "application/json",
         "X-Requested-With"  :   "XMLHttpRequest",
         "Authorization"     :   `${token}`,
