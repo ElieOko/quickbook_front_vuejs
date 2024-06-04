@@ -16,6 +16,6 @@ export interface IAccount{
 }
 
 export interface IAccountRequest{
-    Name        : String
     AccountType : String
+    Name        : String
 }
