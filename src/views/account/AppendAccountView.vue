@@ -8,8 +8,8 @@ import { ApiRoutes } from '@/utils/service/endpoint/api';
 
 
 const account_data = ref<IAccountRequest>({
-  Name:"",
-  AccountType:""
+  AccountType:"",
+  Name:""
 })
 const token = ref<String>("");
 watchEffect( async ()=>{
@@ -90,5 +90,6 @@ const new_submit = async ()=>{
         <button type="submit" class="bg-[#002D74] w-[100px] md:w-1/5 px-8  rounded-xl text-white py-2 hover:scale-105 duration-300 p-4">Save +</button>
     </div>
 </div>
+{{ account_data }}
 </form>
 </template>
