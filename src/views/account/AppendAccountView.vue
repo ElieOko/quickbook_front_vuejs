@@ -25,7 +25,7 @@ const new_submit = async ()=>{
   if(account_data.value.Name && account_data.value.AccountType){
         console.log("@@@@@@@@@@@@",account_data.value);
         await(
-            useAxiosRequest().post("create/account",[account_data.value,{"token":token.value}]).then(response =>{
+            useAxiosRequest().post("create/account",[{AccountType:account_data.value.AccountType,Name:account_data.value.Name},{"token":token.value}]).then(response =>{
                 console.log(response.data)
             }).catch(err =>{
                 console.log(`MY ERROR =>${err}`)
