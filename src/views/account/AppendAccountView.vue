@@ -24,8 +24,13 @@ watchEffect( async ()=>{
 const new_submit = async ()=>{
   if(account_data.value.Name && account_data.value.AccountType){
         console.log("@@@@@@@@@@@@",account_data.value);
+        const data = {
+          AccountType:account_data.value.AccountType,
+          Name:account_data.value.Name
+        };
+        console.log(data);
         await(
-            useAxiosRequest().post("create/account",{"AccountType":account_data.value.AccountType as String,"Name":account_data.value.Name as String}).then(response =>{
+            useAxiosRequest().post("create/account",data).then(response =>{
                 console.log(response.data)
             }).catch(err =>{
                 console.log(`MY ERROR =>${err}`)
